@@ -10,7 +10,7 @@
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/btnKonfirmasiRental"
+        app:layout_constraintBottom_toTopOf="@id/btn_confirmation_rental"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -107,7 +107,7 @@
                 android:text="Mobil"
                 android:layout_marginTop="16dp"
                 android:background="#EDEDED"
-                android:drawableStart="@drawable/mobil"
+                android:drawableStart="@drawable/car"
                 android:drawableTint="@color/purple_500"
                 android:drawablePadding="16dp"
                 android:paddingStart="24dp"
@@ -149,7 +149,7 @@
                         android:textSize="16sp"/>
 
                     <TextView
-                        android:id="@+id/detailKategori"
+                        android:id="@+id/detail_category"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Kategori"/>
@@ -172,7 +172,7 @@
                 android:text="Sopir"
                 android:layout_marginTop="16dp"
                 android:background="#EDEDED"
-                android:drawableStart="@drawable/sopir"
+                android:drawableStart="@drawable/driver"
                 android:drawableTint="@color/purple_500"
                 android:drawablePadding="16dp"
                 android:paddingStart="24dp"
@@ -181,7 +181,7 @@
                 style="@style/TextAppearance.AppCompat.Title"/>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardSopir"
+                android:id="@+id/card_driver"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardElevation="0dp"
@@ -190,7 +190,7 @@
                 app:cardBackgroundColor="#EDEDED">
 
                 <ImageView
-                    android:id="@+id/detailFotoSopir"
+                    android:id="@+id/detail_photo_driver"
                     android:layout_width="64dp"
                     android:layout_height="56dp"
                     android:layout_margin="12dp"
@@ -205,7 +205,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/detailSopir"
+                        android:id="@+id/detail_driver"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Nama Sopir"
@@ -215,7 +215,7 @@
                         android:textSize="16sp"/>
 
                     <TextView
-                        android:id="@+id/detailHpSopir"
+                        android:id="@+id/detail_hp_driver"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="No Hp"/>
@@ -257,7 +257,7 @@
                     android:text="Tanggal Rental"/>
 
                 <TextView
-                    android:id="@+id/detailTgl"
+                    android:id="@+id/detail_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Tanggal Rental"
@@ -282,7 +282,7 @@
                     android:text="Mulai Berjalan"/>
 
                 <TextView
-                    android:id="@+id/detailTglMulai"
+                    android:id="@+id/detail_date_start"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Tanggal Mulai"
@@ -307,7 +307,7 @@
                     android:text="Selesai"/>
 
                 <TextView
-                    android:id="@+id/detailTglSelesai"
+                    android:id="@+id/detail_date_end"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Tanggal Selesai"
@@ -332,7 +332,7 @@
                     android:text="Hari"/>
 
                 <TextView
-                    android:id="@+id/detailHari"
+                    android:id="@+id/detail_day"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1 Hari"
@@ -342,7 +342,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cdHrgaSopir"
+                android:id="@+id/cd_price_driver"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -358,10 +358,10 @@
                     android:text="Biaya Sopir"/>
 
                 <TextView
-                    android:id="@+id/detailHargaSopir"
+                    android:id="@+id/detail_price_driver"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rp.000000"
+                    android:text="RM 000000"
                     android:textSize="15sp"
                     android:layout_gravity="end|center_vertical"
                     android:textColor="@color/black"/>
@@ -386,7 +386,7 @@
                     android:id="@+id/detailHargaRental"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rp.000000"
+                    android:text="RM 000000"
                     android:textSize="15sp"
                     android:layout_gravity="end|center_vertical"
                     android:textColor="@color/black"/>
@@ -411,7 +411,7 @@
                     android:id="@+id/detailTotal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rp.300000"
+                    android:text="RM 20"
                     android:textSize="15sp"
                     android:layout_gravity="end|center_vertical"
                     android:textColor="@color/black"/>
@@ -452,7 +452,7 @@
                     android:text="Status Pembayaran"/>
 
                 <TextView
-                    android:id="@+id/detailStatusBayar"
+                    android:id="@+id/detail_status_payment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Status Pembayaran"
@@ -462,7 +462,7 @@
             </androidx.cardview.widget.CardView>
 
             <TextView
-                android:id="@+id/btnDetailPembayaran"
+                android:id="@+id/btn_detail_payment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Lihat Detail Pembayaran .."
@@ -477,7 +477,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <Button
-        android:id="@+id/btnKonfirmasiRental"
+        android:id="@+id/btn_confirmation_rental"
         android:layout_width="match_parent"
         android:layout_height="42dp"
         android:text="Konfirmasi Mobil Berjalan"
@@ -487,12 +487,12 @@
         android:layout_marginBottom="4dp"
         android:drawableLeft="@drawable/right"
         android:drawableTint="@color/white"
-        app:layout_constraintBottom_toTopOf="@id/btnBatalkanRental"
+        app:layout_constraintBottom_toTopOf="@id/btnCancelRental"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
     <Button
-        android:id="@+id/btnKonfirmasiPengembalian"
+        android:id="@+id/btn_confirmation_return"
         android:layout_width="match_parent"
         android:layout_height="42dp"
         android:text="Konfirmasi Mobil Kembali"
@@ -503,12 +503,12 @@
         android:layout_marginBottom="4dp"
         android:drawableLeft="@drawable/left"
         android:drawableTint="@color/white"
-        app:layout_constraintBottom_toTopOf="@id/btnBatalkanRental"
+        app:layout_constraintBottom_toTopOf="@id/btnCancelRental"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
     <Button
-        android:id="@+id/btnBatalkanRental"
+        android:id="@+id/btnCancelRental"
         android:layout_width="match_parent"
         android:layout_height="42dp"
         android:text="Batalkan Booking"

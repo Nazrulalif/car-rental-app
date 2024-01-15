@@ -3,25 +3,19 @@ package com.example.rental_mobil.Admin
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.example.rental_mobil.ImageDetailActivity
-import com.example.rental_mobil.Model.Mobil
-import com.example.rental_mobil.Model.Pelanggan
-import com.example.rental_mobil.Model.Riwayat
+import com.example.rental_mobil.Model.Car
+import com.example.rental_mobil.Model.Customer
+import com.example.rental_mobil.Model.History
 import com.example.rental_mobil.R
-import com.example.rental_mobil.View.Pelanggan.PdfActivity
-import com.example.rental_mobil.ViewModel.RiwayatViewModel
 import com.example.rental_mobil.databinding.ActivityRentalAdminDetailBinding
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
-import java.io.Serializable
 import java.util.HashMap
 
 class RentalDetailActivity : AppCompatActivity() {
@@ -31,9 +25,9 @@ class RentalDetailActivity : AppCompatActivity() {
     var idM = ""
     var stsB = ""
     var imgUrl = ""
-    private lateinit var mobil: Mobil
-    private lateinit var pelanggan: Pelanggan
-    private lateinit var riwayat: Riwayat
+    private lateinit var car: Car
+    private lateinit var customer: Customer
+    private lateinit var history: History
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         b = ActivityRentalAdminDetailBinding.inflate(layoutInflater)
@@ -45,14 +39,14 @@ class RentalDetailActivity : AppCompatActivity() {
         detailPelanggan()
         detailMobil()
 
-        b.btnKonfirmasiRental.setOnClickListener {
+        b.btnConfirmationRental.setOnClickListener {
             AlertDialog.Builder(this)
                 .setTitle("Peringatan!")
                 .setIcon(R.drawable.warning)
                 .setMessage("Apakah Anda ingin mengonfirmasi bahwa mobil sudah berjalan?")
                 .setPositiveButton("Ya", DialogInterface.OnClickListener { dialogInterface, i ->
                     var paket : Bundle? = intent.extras
-                    val dialog = RentalKonfirmasiFragment()
+                    val dialog = RentalConfirmationFragment()
 
                     val bundle = Bundle()
                     bundle.putString("id", paket?.getString("idR").toString())
@@ -66,11 +60,11 @@ class RentalDetailActivity : AppCompatActivity() {
                 .show()
         }
 
-        b.btnBatalkanRental.setOnClickListener {
+        b.btnCancelRental.setOnClickListener {
             batalkan()
         }
 
-        b.btnDetailPembayaran.setOnClickListener {
+        b.btnDetailPayment.setOnClickListener {
             val intent = Intent(this, ImageDetailActivity::class.java)
             intent.putExtra("img", imgUrl)
             startActivity(intent)
@@ -100,14 +94,14 @@ class RentalDetailActivity : AppCompatActivity() {
 
 
 
-        b.btnKonfirmasiPengembalian.setOnClickListener {
+        b.btnConfirmationReturn.setOnClickListener {
             AlertDialog.Builder(this)
                 .setTitle("Peringatan!")
                 .setIcon(R.drawable.warning)
                 .setMessage("Apakah Anda ingin mengonfirmasi mobil sudah kembali?")
                 .setPositiveButton("Ya", DialogInterface.OnClickListener { dialogInterface, i ->
                     var paket : Bundle? = intent.extras
-                    val dialog = RentalKembaliFragment()
+                    val dialog = RentalReturnFragment()
 
                     val bundle = Bundle()
                     bundle.putString("id", paket?.getString("idR").toString())
@@ -155,53 +149,53 @@ class RentalDetailActivity : AppCompatActivity() {
                     val st12 = document.get("bukti_pembayaran").toString()
                     val st13 = document.get("waktu_denda").toString()
                     val st14 = document.get("nama_mobil").toString()
-                    riwayat = Riwayat(st10,st12,st7,"",st4,st11,"","",st9,"",st2, st3,st8,st3,st1,st6,"",st13,st14)
+                    history = History(st10,st12,st7,"",st4,st11,"","",st9,"",st2, st3,st8,st3,st1,st6,"",st13,st14)
                     idM = st11
                     idS = st9
                     stsB = st8
                     imgUrl = st12
-                    b.detailTgl.setText(st1)
-                    b.detailTglMulai.setText(st2)
-                    b.detailTglSelesai.setText(st3)
-                    b.detailHari.setText(st4+" Hari")
+                    b.detailDate.setText(st1)
+                    b.detailDateStart.setText(st2)
+                    b.detailDateEnd.setText(st3)
+                    b.detailDay.setText(st4+" Hari")
                     b.detailCreated.setText(st7)
-                    b.detailStatusBayar.setText(st8)
-                    b.detailHargaSopir.setText("Rp."+st10)
+                    b.detailStatusPayment.setText(st8)
+                    b.detailPriceDriver.setText("RM "+st10)
 
                     if (st9.equals("")) {
-                        b.cardSopir.visibility = View.GONE
+                        b.cardDriver.visibility = View.GONE
                         b.tvSopir.visibility = View.GONE
-                        b.detailHargaSopir.visibility = View.GONE
-                        b.cdHrgaSopir.visibility = View.GONE
-                        b.detailTotal.setText("Rp."+st6)
+                        b.detailPriceDriver.visibility = View.GONE
+                        b.cdPriceDriver.visibility = View.GONE
+                        b.detailTotal.setText("RM "+st6)
                     } else {
                         detailSopir(st9)
-                        b.detailTotal.setText("Rp."+st6)
+                        b.detailTotal.setText("RM "+st6)
                     }
 
                     if (st8.equals("Belum Bayar")) {
-                        b.btnDetailPembayaran.visibility = View.GONE
+                        b.btnDetailPayment.visibility = View.GONE
                     } else if (st8.equals("DP")) {
-                        b.detailStatusBayar.setTextColor(Color.BLUE)
-                        b.btnDetailPembayaran.visibility = View.VISIBLE
+                        b.detailStatusPayment.setTextColor(Color.BLUE)
+                        b.btnDetailPayment.visibility = View.VISIBLE
                     } else {
-                        b.detailStatusBayar.setTextColor(Color.parseColor("#1ADC33"))
-                        b.btnDetailPembayaran.visibility = View.VISIBLE
+                        b.detailStatusPayment.setTextColor(Color.parseColor("#1ADC33"))
+                        b.btnDetailPayment.visibility = View.VISIBLE
                     }
 
                     if (st5.equals("Booking")) {
                         b.detailStatusRental.setText(st5)
-                        b.btnBatalkanRental.visibility = View.VISIBLE
+                        b.btnCancelRental.visibility = View.VISIBLE
                     } else if (st5.equals("Berjalan")) {
                         b.detailStatusRental.setText(st5)
-                        b.btnKonfirmasiRental.visibility = View.GONE
-                        b.btnKonfirmasiPengembalian.visibility = View.VISIBLE
-                        b.btnBatalkanRental.visibility = View.GONE
+                        b.btnConfirmationRental.visibility = View.GONE
+                        b.btnConfirmationReturn.visibility = View.VISIBLE
+                        b.btnCancelRental.visibility = View.GONE
                     } else if (st5.equals("Selesai")) {
                         b.detailStatusRental.setText(st5)
                         b.detailStatusRental.setTextColor(Color.parseColor("#1ADC33"))
-                        b.btnKonfirmasiRental.visibility = View.GONE
-                        b.btnBatalkanRental.visibility = View.GONE
+                        b.btnConfirmationRental.visibility = View.GONE
+                        b.btnCancelRental.visibility = View.GONE
                     }
 
                 } else {
@@ -222,9 +216,9 @@ class RentalDetailActivity : AppCompatActivity() {
                     val st2 = document.get("nama").toString()
                     val st3 = document.get("hp").toString()
 
-                    Picasso.get().load(st1).into(b.detailFotoSopir)
-                    b.detailSopir.setText(st2)
-                    b.detailHpSopir.setText(st3)
+                    Picasso.get().load(st1).into(b.detailPhotoDriver)
+                    b.detailDriver.setText(st2)
+                    b.detailHpDriver.setText(st3)
                 } else {
                     // Dokumen tidak ditemukan
                 }
@@ -244,7 +238,7 @@ class RentalDetailActivity : AppCompatActivity() {
                     val st2 = document.get("nama").toString()
                     val st3 = document.get("hp").toString()
                     val st4 = document.get("alamat").toString()
-                    pelanggan = Pelanggan("",st4,"","","","",st3,st2,"","","","")
+                    customer = Customer("",st4,"","","","",st3,st2,"","","","")
                     Picasso.get().load(st1).into(b.detailFotoPelanggan)
                     b.detailPelanggan.setText(st2)
                     b.detailNoHpPelanggan.setText(st3)
@@ -269,13 +263,13 @@ class RentalDetailActivity : AppCompatActivity() {
                     val st4 = document.get("harga").toString()
                     val st5 = document.get("merk").toString()
                     val st6 = document.get("plat").toString()
-                    mobil = Mobil("", st5,st2,st4,"","",st6,"","","","","","","")
+                    car = Car("", st5,st2,st4,"","",st6,"","","","","","","")
 
                     Picasso.get().load(st1).into(b.detailFotoMobil)
                     b.detailMobil.setText(st2)
-                    b.detailKategori.setText(st3)
-                    b.detailHarga.setText("Harga Rental Rp. "+st4)
-                    b.detailHargaRental.setText("Rp. "+st4)
+                    b.detailCategory.setText(st3)
+                    b.detailHarga.setText("Harga Rental RM "+st4)
+                    b.detailHargaRental.setText("RM "+st4)
                 } else {
                     // Dokumen tidak ditemukan
                 }

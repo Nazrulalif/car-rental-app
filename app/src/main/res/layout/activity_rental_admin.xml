@@ -39,7 +39,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/btnBerjalan"
+        android:id="@+id/btn_working"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginHorizontal="24dp"
@@ -73,7 +73,7 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:id="@+id/btnRiwayat"
+        android:id="@+id/btn_history"
         android:layout_height="100dp"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="16dp"

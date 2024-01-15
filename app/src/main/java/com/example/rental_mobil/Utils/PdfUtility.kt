@@ -225,7 +225,7 @@ import java.util.List
             for (item in dataTable) {
                 total+=item[6].toInt()
             }
-            val totalText = "Total Keseluruhan: Rp.$total"
+            val totalText = "Total Keseluruhan: RM $total"
             //ROW-4 : Content Right Aligned
             cell = PdfPCell(Phrase(totalText, FONT_SUBTITLE))
 

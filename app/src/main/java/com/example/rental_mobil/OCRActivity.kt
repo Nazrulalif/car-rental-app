@@ -14,7 +14,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
-import com.example.rental_mobil.Pelanggan.BookingKonfirmasiActivity
 import com.example.rental_mobil.Utils.KTPChecker
 import com.example.rental_mobil.Utils.TextAnalyser
 import com.example.rental_mobil.databinding.ActivityOcrBinding

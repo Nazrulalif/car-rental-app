@@ -38,7 +38,7 @@
             android:name=".ImageDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".View.Pelanggan.PdfActivity"
+            android:name=".View.Customer.PdfActivity"
             android:screenOrientation="portrait"
             android:label="Preview Pdf"
             />
@@ -46,40 +46,40 @@
             android:name=".SignUpActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SignUpSelesaiActivity"
+            android:name=".SignUpFinishActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Admin.DashboardActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Admin.PelangganActivity"
+            android:name=".Admin.CustomerActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Admin.PelangganDetailActivity"
+            android:name=".Admin.CustomerDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Admin.SopirActivity"
+            android:name=".Admin.DriverActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Admin.SopirDetailActivity"
+            android:name=".Admin.DriverDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Admin.KategoriActivity"
+            android:name=".Admin.CategoryActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".View.Admin.Mobil.MobilActivity"
+            android:name=".View.Admin.Car.CarActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Admin.SopirEditActivity"
+            android:name=".Admin.DriverEditActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Admin.SopirTambahActivity"
+            android:name=".Admin.DriverAddActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".View.Admin.Mobil.MobilTambahActivity"
+            android:name=".View.Admin.Car.CarAddActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".View.Admin.Mobil.MobilEditActivity"
+            android:name=".View.Admin.Car.CarEditActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Admin.RentalActivity"
@@ -91,43 +91,43 @@
             android:name=".Admin.RentalDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Admin.RentalBerjalanActivity"
+            android:name=".Admin.RentalWorkingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Admin.RentalRiwayatActivity"
+            android:name=".Admin.RentalHistoryActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Admin.LaporanActivity"
+            android:name=".Admin.ReportActivity"
             android:screenOrientation="portrait" /> <!-- Pelanggan -->
         <activity
-            android:name=".Pelanggan.ContactActivity"
+            android:name=".Customer.ContactActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Pelanggan.AboutActivity"
+            android:name=".Customer.AboutActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Pelanggan.DashboardActivity"
+            android:name=".Customer.DashboardActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Pelanggan.BookingActivity"
+            android:name=".Customer.BookingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Pelanggan.BookingKonfirmasiActivity"
+            android:name=".Customer.BookingKonfirmasiActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Pelanggan.MobilActivity"
+            android:name=".Customer.CarActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".View.Pelanggan.RiwayatActivity"
+            android:name=".View.Customer.HistoryActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".View.Pelanggan.RiwayatDetailActivity"
+            android:name=".View.Customer.HistoryDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".View.Pelanggan.ProfilActivity"
+            android:name=".View.Customer.ProfileActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".View.Pelanggan.ProfilEditActivity"
+            android:name=".View.Customer.ProfileEditActivity"
             android:screenOrientation="portrait" />
 
         <meta-data

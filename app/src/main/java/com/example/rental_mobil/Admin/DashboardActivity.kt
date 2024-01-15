@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import com.example.rental_mobil.MainActivity
 import com.example.rental_mobil.R
-import com.example.rental_mobil.View.Admin.Mobil.MobilActivity
+import com.example.rental_mobil.View.Admin.Car.CarActivity
 import com.example.rental_mobil.databinding.ActivityDashboardAdminBinding
 import com.example.rental_mobil.databinding.NavHeaderBinding
 import com.google.firebase.firestore.FirebaseFirestore
@@ -21,9 +21,9 @@ class DashboardActivity : AppCompatActivity() {
     private lateinit var hb: NavHeaderBinding
 
     val db = FirebaseFirestore.getInstance()
-    val refMobil = db.collection("mobil")
-    val refPela = db.collection("pelanggan")
-    val refSopir = db.collection("sopir")
+    val refCar = db.collection("mobil")
+    val refCust = db.collection("pelanggan")
+    val refDriver = db.collection("sopir")
     val refRental = db.collection("rental")
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,28 +44,28 @@ class DashboardActivity : AppCompatActivity() {
                 R.id.nav_homeAdmin -> {
                     b.drawerLayout.closeDrawer(GravityCompat.START)
                 }
-                R.id.nav_pelangganAdmin -> {
-                    startActivity(Intent(this, PelangganActivity::class.java))
+                R.id.nav_customerAdmin -> {
+                    startActivity(Intent(this, CustomerActivity::class.java))
                     overridePendingTransition(R.anim.slide_in_right, R.anim.stay)
                 }
 //                R.id.nav_sopirAdmin -> {
 //                    startActivity(Intent(this, SopirActivity::class.java))
 //                    overridePendingTransition(R.anim.slide_in_right, R.anim.stay)
 //                }
-                R.id.nav_kategoriAdmin -> {
-                    startActivity(Intent(this, KategoriActivity::class.java))
+                R.id.nav_categoryAdmin -> {
+                    startActivity(Intent(this, CategoryActivity::class.java))
                     overridePendingTransition(R.anim.slide_in_right, R.anim.stay)
                 }
-                R.id.nav_mobilAdmin -> {
-                    startActivity(Intent(this, MobilActivity::class.java))
+                R.id.nav_carAdmin -> {
+                    startActivity(Intent(this, CarActivity::class.java))
                     overridePendingTransition(R.anim.slide_in_right, R.anim.stay)
                 }
                 R.id.nav_rentalAdmin -> {
                     startActivity(Intent(this, RentalActivity::class.java))
                     overridePendingTransition(R.anim.slide_in_right, R.anim.stay)
                 }
-                R.id.nav_laporanAdmin -> {
-                    startActivity(Intent(this, LaporanActivity::class.java))
+                R.id.nav_reportAdmin -> {
+                    startActivity(Intent(this, ReportActivity::class.java))
                     overridePendingTransition(R.anim.slide_in_right, R.anim.stay)
                 }
                 R.id.nav_logoutAdmin -> {
@@ -101,21 +101,21 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     fun count() {
-        refMobil
+        refCar
             .whereEqualTo("deleted", "")
             .get()
             .addOnSuccessListener { result ->
                 val count = result.size()
-                b.tvMobil.setText(count.toString())
+                b.tvCar.setText(count.toString())
 
-                refPela
+                refCust
                     .whereEqualTo("deleted", "")
                     .get()
                     .addOnSuccessListener { result ->
                         val count = result.size()
-                        b.tvPelanggan.setText(count.toString())
+                        b.tvCustomer.setText(count.toString())
 
-                        refSopir
+                        refDriver
                             .whereEqualTo("deleted", "")
                             .get()
                             .addOnSuccessListener { result ->
@@ -139,14 +139,14 @@ class DashboardActivity : AppCompatActivity() {
                     .get()
                     .addOnSuccessListener { result ->
                         val count = result.size()
-                        b.tvBerjalan.setText(count.toString())
+                        b.tvWorking.setText(count.toString())
 
                         refRental
                             .whereEqualTo("status_rental", "Selesai")
                             .get()
                             .addOnSuccessListener { result ->
                                 val count = result.size()
-                                b.tvKembali.setText(count.toString())
+                                b.tvReturn.setText(count.toString())
 
                             }
                     }

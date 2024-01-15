@@ -21,7 +21,7 @@
         <menu>
             <item
                 android:id="@+id/nav_mobilPelanggan"
-                android:icon="@drawable/mobil"
+                android:icon="@drawable/car"
                 android:title="Katalog Mobil"/>
 
             <item
@@ -31,7 +31,7 @@
 
             <item
                 android:id="@+id/nav_riwayatPelanggan"
-                android:icon="@drawable/riwayat"
+                android:icon="@drawable/history"
                 android:title="Riwayat"/>
         </menu>
     </item>

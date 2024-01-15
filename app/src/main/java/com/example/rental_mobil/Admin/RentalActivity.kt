@@ -21,13 +21,13 @@ class RentalActivity : AppCompatActivity() {
             overridePendingTransition(R.anim.slide_in_right, R.anim.stay)
         }
 
-        b.btnBerjalan.setOnClickListener {
-            startActivity(Intent(this, RentalBerjalanActivity::class.java))
+        b.btnWorking.setOnClickListener {
+            startActivity(Intent(this, RentalWorkingActivity::class.java))
             overridePendingTransition(R.anim.slide_in_right, R.anim.stay)
         }
 
-        b.btnRiwayat.setOnClickListener {
-            startActivity(Intent(this, RentalRiwayatActivity::class.java))
+        b.btnHistory.setOnClickListener {
+            startActivity(Intent(this, RentalHistoryActivity::class.java))
             overridePendingTransition(R.anim.slide_in_right, R.anim.stay)
         }
     }

@@ -12,9 +12,9 @@ import com.example.rental_mobil.R
 class AdapterLaporan  (val dataRental: List<HashMap<String,String>>) :
     RecyclerView.Adapter<AdapterLaporan.HolderDataRental>(){
     class HolderDataRental (v : View) : RecyclerView.ViewHolder(v) {
-        val nm = v.findViewById<TextView>(R.id.rentalNama)
-        val mb = v.findViewById<TextView>(R.id.rentalMobil)
-        val tgl = v.findViewById<TextView>(R.id.rentalTanggal)
+        val nm = v.findViewById<TextView>(R.id.rentalName)
+        val mb = v.findViewById<TextView>(R.id.rentalCar)
+        val tgl = v.findViewById<TextView>(R.id.rentalDate)
         val sts = v.findViewById<TextView>(R.id.rentalStatus)
         val dtt = v.findViewById<Button>(R.id.btnDetailRental)
     }

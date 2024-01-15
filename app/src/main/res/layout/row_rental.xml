@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardPelanggan"
+        android:id="@+id/cardCustomer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -20,7 +20,7 @@
             android:layout_margin="8dp">
 
             <TextView
-                android:id="@+id/rentalNama"
+                android:id="@+id/rentalName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Nama Pelanggan"
@@ -30,7 +30,7 @@
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/rentalMobil"
+                android:id="@+id/rentalCar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
@@ -44,7 +44,7 @@
                 app:cardElevation="0dp">
 
                 <TextView
-                    android:id="@+id/rentalTanggal"
+                    android:id="@+id/rentalDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0000-00-00"

@@ -7,14 +7,13 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import com.example.rental_mobil.Model.Mobil
-import com.example.rental_mobil.Model.Pelanggan
-import com.example.rental_mobil.Model.Riwayat
+import com.example.rental_mobil.Model.Car
+import com.example.rental_mobil.Model.Customer
+import com.example.rental_mobil.Model.History
 import com.example.rental_mobil.R
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
-import java.util.*
 
 
 class TemplatePdf @JvmOverloads constructor(
@@ -33,9 +32,9 @@ class TemplatePdf @JvmOverloads constructor(
     private var yPadding = 5f.dpToPx()
     private var textSpacing = 5f
     private var yPointer = 0f
-    private var dataPelanggan: Pelanggan? = null
-    private var dataMobil: Mobil? = null
-    private var dataRiwayat: Riwayat? = null
+    private var dataCustomer: Customer? = null
+    private var dataCar: Car? = null
+    private var dataHistory: History? = null
     init {
         paint.color = ContextCompat.getColor(context, R.color.black)
         paint.isAntiAlias = true
@@ -55,12 +54,12 @@ class TemplatePdf @JvmOverloads constructor(
         super.onDraw(canvas)
         canvas?.apply {
             drawHeader(canvas)
-            drawPelangganInfo(canvas, dataPelanggan)
-            drawDue(canvas, dataRiwayat)
-            drawClientInfo(canvas, dataMobil,dataRiwayat)
+            drawPelangganInfo(canvas, dataCustomer)
+            drawDue(canvas, dataHistory)
+            drawClientInfo(canvas, dataCar,dataHistory)
             drawItemHeader(canvas)
-            drawItems(canvas, dataMobil,dataRiwayat)
-            drawTotal(canvas, dataRiwayat)
+            drawItems(canvas, dataCar,dataHistory)
+            drawTotal(canvas, dataHistory)
             save()
             restore()
         }
@@ -100,7 +99,7 @@ class TemplatePdf @JvmOverloads constructor(
         canvas?.drawText(title, 0, title.length, rect.centerX(), rect.centerY() + 15, textPaint)
     }
     private fun drawPelangganInfo(
-        canvas: Canvas?, data: Pelanggan?
+        canvas: Canvas?, data: Customer?
     ) {
         setPaintColor(contentBgPaint, getColor(R.color.white))
         setTextSize(textPaint, 16f)
@@ -146,7 +145,7 @@ class TemplatePdf @JvmOverloads constructor(
             textPaint
         )
     }
-    private fun drawDue(canvas: Canvas?, data: Riwayat?) {
+    private fun drawDue(canvas: Canvas?, data: History?) {
         setPaintColor(contentBgPaint, getColor(R.color.white))
         setTextSize(textPaint, 16f)
         setPaintColor(textPaint, getColor(R.color.black))
@@ -195,7 +194,7 @@ class TemplatePdf @JvmOverloads constructor(
         )
     }
     private fun drawClientInfo(
-        canvas: Canvas?, data: Mobil?,dataRiwayat:Riwayat?
+        canvas: Canvas?, data: Car?, dataHistory:History?
     ) {
         setPaintColor(contentBgPaint, getColor(R.color.white))
         setTextSize(textPaint, 16f)
@@ -243,18 +242,18 @@ class TemplatePdf @JvmOverloads constructor(
             textPaint
         )
         canvas?.drawText(
-            "Mulai Rental:${dataRiwayat!!.mulai_rental}",
+            "Mulai Rental:${dataHistory!!.mulai_rental}",
             0,
-            "Mulai Rental:${dataRiwayat!!.mulai_rental}".length,
+            "Mulai Rental:${dataHistory!!.mulai_rental}".length,
             left.dpToPx(),
             textY + (yBound * 4),
             textPaint
         )
 
         canvas?.drawText(
-            "Selesai Rental:${dataRiwayat!!.selesai_rental}",
+            "Selesai Rental:${dataHistory!!.selesai_rental}",
             0,
-            "Selesai Rental:${dataRiwayat!!.selesai_rental}".length,
+            "Selesai Rental:${dataHistory!!.selesai_rental}".length,
             left.dpToPx(),
             textY + (yBound * 5),
             textPaint
@@ -422,7 +421,7 @@ class TemplatePdf @JvmOverloads constructor(
         )
     }
 
-    private fun drawItemsTableRental(canvas: Canvas?, dataRiwayat: MutableList<Riwayat>) {
+    private fun drawItemsTableRental(canvas: Canvas?, dataHistory: MutableList<History>) {
         contentBgPaint.strokeWidth = 5f
         contentBgPaint.style = Paint.Style.STROKE
         contentBgPaint.color = Color.BLACK
@@ -438,7 +437,7 @@ class TemplatePdf @JvmOverloads constructor(
         val xBound = textBounds.width().toFloat()
         val yBound = textBounds.height().toFloat() + (textSpacing + 2).dpToPx()
         val top = yPointer + yMargin
-        val bottom = top + calculateNormalizedTableHeight(dataRiwayat.size, yBound.toInt())
+        val bottom = top + calculateNormalizedTableHeight(dataHistory.size, yBound.toInt())
         val right = canvas?.width!!.toFloat()- xMargin.dpToPx()
         val width = canvas!!.width
         yPointer = bottom
@@ -452,7 +451,7 @@ class TemplatePdf @JvmOverloads constructor(
         stkPaint.strokeWidth = 8f
         stkPaint.color = Color.WHITE
 
-        for (item in dataRiwayat) {
+        for (item in dataHistory) {
             textAlignLeft(textPaint)
             canvas?.drawText(
                 item.mulai_rental,
@@ -522,7 +521,7 @@ class TemplatePdf @JvmOverloads constructor(
 
     }
 
-    private fun drawItemsDenda(canvas: Canvas?, dataRiwayat: MutableList<Riwayat>) {
+    private fun drawItemsDenda(canvas: Canvas?, dataHistory: MutableList<History>) {
         contentBgPaint.strokeWidth = 5f
         contentBgPaint.style = Paint.Style.STROKE
         contentBgPaint.color = Color.BLACK
@@ -538,7 +537,7 @@ class TemplatePdf @JvmOverloads constructor(
         val xBound = textBounds.width().toFloat()
         val yBound = textBounds.height().toFloat() + (textSpacing + 2).dpToPx()
         val top = yPointer + yMargin
-        val bottom = top + calculateNormalizedTableHeight(dataRiwayat.size, yBound.toInt())
+        val bottom = top + calculateNormalizedTableHeight(dataHistory.size, yBound.toInt())
         val right = canvas?.width!!.toFloat()
         val width = canvas!!.width
         yPointer = bottom
@@ -547,13 +546,13 @@ class TemplatePdf @JvmOverloads constructor(
         val textY = rect.top + yPadding
         var yBoundFactor = 1
         var index =0
-        for (item in dataRiwayat) {
+        for (item in dataHistory) {
             textAlignLeft(textPaint)
             val denda= if(item.denda.isEmpty()) "0" else item.denda
             canvas?.drawText(
-                "Rp.$denda",
+                "RM $denda",
                 0,
-                "Rp.$denda".length,
+                "RM $denda".length,
                 xMargin * 2.dpToPx(),
                 textY + (yBound * yBoundFactor),
                 textPaint
@@ -563,7 +562,7 @@ class TemplatePdf @JvmOverloads constructor(
         }
 
     }
-    private fun drawItemsTableMobilDanPelanggan(canvas: Canvas?,dataPelanggan:MutableList<Pelanggan>,dataMobil:MutableList<Mobil>) {
+    private fun drawItemsTableMobilDanPelanggan(canvas: Canvas?, dataCustomer:MutableList<Customer>, dataCar:MutableList<Car>) {
         contentBgPaint.strokeWidth = 5f
         contentBgPaint.style = Paint.Style.STROKE
         contentBgPaint.color = Color.BLACK
@@ -579,7 +578,7 @@ class TemplatePdf @JvmOverloads constructor(
         val xBound = textBounds.width().toFloat()
         val yBound = textBounds.height().toFloat() + (textSpacing + 2).dpToPx()
         val top = yPointer + yMargin
-        val bottom = top + calculateNormalizedTableHeight(dataPelanggan.size, yBound.toInt())
+        val bottom = top + calculateNormalizedTableHeight(dataCustomer.size, yBound.toInt())
         val right = canvas?.width!!.toFloat()- xMargin.dpToPx()
         val width = canvas!!.width
         yPointer = bottom
@@ -588,7 +587,7 @@ class TemplatePdf @JvmOverloads constructor(
         val textY = rect.top + yPadding
         var yBoundFactor = 1
         var index =0
-        for (item in dataPelanggan) {
+        for (item in dataCustomer) {
             textAlignLeft(textPaint)
             canvas?.drawText(
                 item.nama,
@@ -601,15 +600,15 @@ class TemplatePdf @JvmOverloads constructor(
             textAlignRight(textPaint)
 
             canvas?.drawText(
-                dataMobil[index].plat,
+                dataCar[index].plat,
                 0,
-                dataMobil[index].plat.length,
+                dataCar[index].plat.length,
                 (width / 2) + (xBound-xMargin*8),
                 textY + (yBound * yBoundFactor),
                 textPaint
             )
 
-            val price: String = currencySymbol + dataMobil[index].harga
+            val price: String = currencySymbol + dataCar[index].harga
             canvas?.drawText(
                 price,
                 0,
@@ -625,7 +624,7 @@ class TemplatePdf @JvmOverloads constructor(
     }
 
 
-    private fun drawItems(canvas: Canvas?, dataMobil: Mobil?, data: Riwayat?) {
+    private fun drawItems(canvas: Canvas?, dataCar: Car?, data: History?) {
         setPaintColor(contentBgPaint, getColor(androidx.appcompat.R.color.material_grey_100))
         setTextSize(textPaint, 16f)
         setPaintColor(textPaint, getColor(R.color.black))
@@ -645,9 +644,9 @@ class TemplatePdf @JvmOverloads constructor(
         var yBoundFactor = 1
         textAlignLeft(textPaint)
         canvas?.drawText(
-            "Rp.${dataMobil!!.harga}",
+            "RM ${dataCar!!.harga}",
             0,
-            "Rp.${dataMobil.harga}".length,
+            "RM ${dataCar.harga}".length,
             xMargin * 2.dpToPx(),
             textY + (yBound * yBoundFactor),
             textPaint
@@ -664,7 +663,7 @@ class TemplatePdf @JvmOverloads constructor(
         )
 
     }
-    private fun drawTotal(canvas: Canvas?, data: Riwayat?) {
+    private fun drawTotal(canvas: Canvas?, data: History?) {
         setTextSize(textPaint, 16f)
         setPaintColor(textPaint, getColor(R.color.black))
         setTypFace(textPaint, Typeface.create(Typeface.DEFAULT_BOLD, Typeface.BOLD))
@@ -682,7 +681,7 @@ class TemplatePdf @JvmOverloads constructor(
             textPaint
         )
     }
-    private fun drawTotalTable(canvas: Canvas?, data: MutableList<Riwayat>) {
+    private fun drawTotalTable(canvas: Canvas?, data: MutableList<History>) {
         setTextSize(textPaint, 16f)
         setPaintColor(textPaint, getColor(R.color.black))
         setTypFace(textPaint, Typeface.create(Typeface.DEFAULT_BOLD, Typeface.BOLD))
@@ -734,10 +733,10 @@ class TemplatePdf @JvmOverloads constructor(
     private fun Int.dpToPx() = (this * resources.displayMetrics.density).toInt()
     private fun Float.spToPx() = this * resources.displayMetrics.scaledDensity
     private fun Int.pxToDp() = (this * 160) / resources.displayMetrics.densityDpi
-    fun setData(dataPelanggan: Pelanggan?,dataRiwayat: Riwayat?,dataMobil: Mobil?) {
-        this.dataPelanggan = dataPelanggan
-        this.dataRiwayat = dataRiwayat
-        this.dataMobil = dataMobil
+    fun setData(dataCustomer: Customer?, dataHistory: History?, dataCar: Car?) {
+        this.dataCustomer = dataCustomer
+        this.dataHistory = dataHistory
+        this.dataCar = dataCar
     }
     fun setBackgroundPaint(templateId: Int?) {
         when (templateId) {
@@ -752,19 +751,19 @@ class TemplatePdf @JvmOverloads constructor(
     }
 
 
-    fun generatePdf(     dataPelanggan: Pelanggan? = null,
-             dataMobil: Mobil? = null,
-             dataRiwayat: Riwayat? = null, file: File,width:Int,height:Int) {
+    fun generatePdf(dataCustomer: Customer? = null,
+                    dataCar: Car? = null,
+                    dataHistory: History? = null, file: File, width:Int, height:Int) {
         val pdfDocument = PdfDocument()
         val page = pdfDocument.startPage(pageInfo(width, height, 2))
-        designPage(page, pdfDocument, dataPelanggan, dataMobil, dataRiwayat, file)
+        designPage(page, pdfDocument, dataCustomer, dataCar, dataHistory, file)
     }
-    fun generateTablePdf(     dataPelanggan: MutableList<Pelanggan>,
-             dataMobil: MutableList<Mobil>,
-             dataRiwayat: MutableList<Riwayat>, file: File,width:Int,height:Int) {
+    fun generateTablePdf(dataCustomer: MutableList<Customer>,
+                         dataCar: MutableList<Car>,
+                         dataHistory: MutableList<History>, file: File, width:Int, height:Int) {
         val pdfDocument = PdfDocument()
         val page = pdfDocument.startPage(pageInfo(width, height, 2))
-        designPageTable(page, pdfDocument, dataPelanggan, dataMobil, dataRiwayat, file)
+        designPageTable(page, pdfDocument, dataCustomer, dataCar, dataHistory, file)
     }
 
     private fun pageInfo(pageWidth: Int, pageHeight: Int, pageNumber: Int): PdfDocument.PageInfo {
@@ -774,29 +773,29 @@ class TemplatePdf @JvmOverloads constructor(
 // Simple template. Note: Remove dpToPx() while drawing in PDF page // canvas.
     private fun designPage(
         page: PdfDocument.Page,
-        pdfDocument: PdfDocument,dataPelanggan: Pelanggan? = null,
-        dataMobil: Mobil? = null,
-        dataRiwayat: Riwayat? = null,
+        pdfDocument: PdfDocument, dataCustomer: Customer? = null,
+        dataCar: Car? = null,
+        dataHistory: History? = null,
         file: File
     ) {
         val canvas: Canvas = page.canvas
 
         setBackgroundPaint(1)
         drawHeader(canvas)
-        drawPelangganInfo(canvas, dataPelanggan)
-        drawDue(canvas, dataRiwayat)
-        drawClientInfo(canvas, dataMobil,dataRiwayat)
+        drawPelangganInfo(canvas, dataCustomer)
+        drawDue(canvas, dataHistory)
+        drawClientInfo(canvas, dataCar,dataHistory)
         drawItemHeader(canvas)
-        drawItems(canvas, dataMobil,dataRiwayat)
-        drawTotal(canvas, dataRiwayat)
+        drawItems(canvas, dataCar,dataHistory)
+        drawTotal(canvas, dataHistory)
         pdfDocument.finishPage(page)
         writeContentToFile(file, pdfDocument)
     }
     private fun designPageTable(
         page: PdfDocument.Page,
-        pdfDocument: PdfDocument,dataPelanggan: MutableList<Pelanggan>,
-        dataMobil: MutableList<Mobil>,
-        dataRiwayat: MutableList<Riwayat>,
+        pdfDocument: PdfDocument, dataCustomer: MutableList<Customer>,
+        dataCar: MutableList<Car>,
+        dataHistory: MutableList<History>,
         file: File
     ) {
         val canvas: Canvas = page.canvas
@@ -804,12 +803,12 @@ class TemplatePdf @JvmOverloads constructor(
         setBackgroundPaint(1)
         drawHeaderTable(canvas)
         drawItemHeaderTablePelangganDanMobil(canvas)
-        drawItemsTableMobilDanPelanggan(canvas, dataPelanggan, dataMobil)
+        drawItemsTableMobilDanPelanggan(canvas, dataCustomer, dataCar)
         drawItemHeaderTable(canvas)
-        drawItemsTableRental(canvas, dataRiwayat)
+        drawItemsTableRental(canvas, dataHistory)
         drawItemHeaderDenda(canvas)
-        drawItemsDenda(canvas, dataRiwayat)
-        drawTotalTable(canvas, dataRiwayat)
+        drawItemsDenda(canvas, dataHistory)
+        drawTotalTable(canvas, dataHistory)
 
         pdfDocument.finishPage(page)
         writeContentToFile(file, pdfDocument)

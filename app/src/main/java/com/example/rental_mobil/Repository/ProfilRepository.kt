@@ -3,7 +3,7 @@ package com.example.rental_mobil.Repository
 import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.rental_mobil.Model.Pelanggan
+import com.example.rental_mobil.Model.Customer
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import java.text.SimpleDateFormat
@@ -12,15 +12,15 @@ import java.util.Date
 class ProfilRepository {
     private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
 
-    fun profil(email: String): LiveData<Pelanggan> {
-        val resultLiveData = MutableLiveData<Pelanggan>()
+    fun profil(email: String): LiveData<Customer> {
+        val resultLiveData = MutableLiveData<Customer>()
 
         firestore.collection("pelanggan")
             .document(email)
             .get()
             .addOnSuccessListener { doc ->
                 if (doc != null && doc.exists()) {
-                    val data = Pelanggan(
+                    val data = Customer(
                         doc.get("id_pelanggan").toString(),
                         doc.get("alamat").toString(),
                         doc.get("deleted").toString(),
@@ -44,14 +44,14 @@ class ProfilRepository {
         return resultLiveData
     }
 
-    fun edit(pelanggan: Pelanggan, uri: Uri?): LiveData<Boolean> {
+    fun edit(customer: Customer, uri: Uri?): LiveData<Boolean> {
         val resultLiveData = MutableLiveData<Boolean>()
 
         val hm = HashMap<String, Any>()
-        hm.set("alamat", pelanggan.alamat)
-        hm.set("hp", pelanggan.hp)
-        hm.set("nama", pelanggan.nama)
-        hm.set("nik", pelanggan.nik)
+        hm.set("alamat", customer.alamat)
+        hm.set("hp", customer.hp)
+        hm.set("nama", customer.nama)
+        hm.set("nik", customer.nik)
         hm.set("updated", SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date()))
         if (uri != Uri.EMPTY) {
             hm.put("foto_profil", "")
@@ -74,7 +74,7 @@ class ProfilRepository {
                     hm.put("foto_profil", task.result.toString())
 
                     firestore.collection("pelanggan")
-                        .document(pelanggan.email)
+                        .document(customer.email)
                         .update(hm)
                         .addOnSuccessListener {
                             resultLiveData.value = true
@@ -88,7 +88,7 @@ class ProfilRepository {
             }
         } else {
             firestore.collection("pelanggan")
-                .document(pelanggan.email)
+                .document(customer.email)
                 .update(hm)
                 .addOnSuccessListener {
                     resultLiveData.value = true

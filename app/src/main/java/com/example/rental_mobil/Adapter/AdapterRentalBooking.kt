@@ -7,9 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.rental_mobil.Admin.PelangganDetailActivity
 import com.example.rental_mobil.Admin.RentalBookingActivity
 import com.example.rental_mobil.Admin.RentalDetailActivity
 import com.example.rental_mobil.R
@@ -17,9 +15,9 @@ import com.example.rental_mobil.R
 class AdapterRentalBooking(val dataRental: List<HashMap<String,String>>, val parent: RentalBookingActivity) :
     RecyclerView.Adapter<AdapterRentalBooking.HolderDataRental>(){
     class HolderDataRental (v : View) : RecyclerView.ViewHolder(v) {
-        val nm = v.findViewById<TextView>(R.id.rentalNama)
-        val mb = v.findViewById<TextView>(R.id.rentalMobil)
-        val tgl = v.findViewById<TextView>(R.id.rentalTanggal)
+        val nm = v.findViewById<TextView>(R.id.rentalName)
+        val mb = v.findViewById<TextView>(R.id.rentalCar)
+        val tgl = v.findViewById<TextView>(R.id.rentalDate)
         val sts = v.findViewById<TextView>(R.id.rentalStatus)
         val dtt = v.findViewById<Button>(R.id.btnDetailRental)
         val del = v.findViewById<Button>(R.id.btn_delete)

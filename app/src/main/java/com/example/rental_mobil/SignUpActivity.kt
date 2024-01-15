@@ -11,7 +11,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.example.rental_mobil.databinding.ActivitySignupBinding
+import com.example.rental_mobil.databinding.ActivitySignupsBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -26,7 +26,7 @@ import java.util.Date
 import java.util.UUID
 
 class SignUpActivity : AppCompatActivity() {
-    private lateinit var b: ActivitySignupBinding
+    private lateinit var b: ActivitySignupsBinding
 
     lateinit var auth : FirebaseAuth
     var currentUser : FirebaseUser? = null
@@ -42,7 +42,7 @@ class SignUpActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        b = ActivitySignupBinding.inflate(layoutInflater)
+        b = ActivitySignupsBinding.inflate(layoutInflater)
         setContentView(b.root)
         supportActionBar?.hide()
 
@@ -216,7 +216,7 @@ class SignUpActivity : AppCompatActivity() {
                             .document(b.insEmail.text.toString())
                             .set(hm)
                             .addOnSuccessListener {
-                                val intent = Intent(this, SignUpSelesaiActivity::class.java)
+                                val intent = Intent(this, SignUpFinishActivity::class.java)
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
                                 startActivity(intent)
                                 overridePendingTransition(R.anim.slide_in_right, R.anim.stay)

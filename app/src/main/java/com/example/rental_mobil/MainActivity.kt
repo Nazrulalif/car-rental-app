@@ -1,14 +1,12 @@
 package com.example.rental_mobil
 
-import android.app.PendingIntent
 import android.content.Intent
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.rental_mobil.Admin.LoginFragment
-import com.example.rental_mobil.Pelanggan.AboutActivity
-import com.example.rental_mobil.Pelanggan.ContactActivity
-import com.example.rental_mobil.Pelanggan.MobilActivity
+import com.example.rental_mobil.Customer.AboutActivity
+import com.example.rental_mobil.Customer.ContactActivity
+import com.example.rental_mobil.Customer.CarActivity
 import com.example.rental_mobil.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -22,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         b.btnLoginPelanggan.setOnClickListener {
-            val dialogFragment = com.example.rental_mobil.Pelanggan.LoginFragment()
+            val dialogFragment = com.example.rental_mobil.Customer.LoginFragment()
             dialogFragment.show(supportFragmentManager, "LoginPelangganFragment")
         }
 
@@ -32,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         b.btnCars.setOnClickListener {
-            startActivity(Intent(this, MobilActivity::class.java))
+            startActivity(Intent(this, CarActivity::class.java))
             overridePendingTransition(R.anim.slide_in_right, R.anim.stay)
         }
 

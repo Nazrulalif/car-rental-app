@@ -15,7 +15,7 @@
 
         <menu>
             <item
-                android:id="@+id/nav_pelangganAdmin"
+                android:id="@+id/nav_customerAdmin"
                 android:icon="@drawable/pelanggan"
                 android:title="Pelanggan"/>
         </menu>
@@ -28,13 +28,13 @@
 
         <menu>
             <item
-                android:id="@+id/nav_kategoriAdmin"
+                android:id="@+id/nav_categoryAdmin"
                 android:icon="@drawable/kategori"
                 android:title="Kategori Mobil"/>
 
             <item
-                android:id="@+id/nav_mobilAdmin"
-                android:icon="@drawable/mobil"
+                android:id="@+id/nav_carAdmin"
+                android:icon="@drawable/car"
                 android:title="Mobil"/>
 
             <item
@@ -43,8 +43,8 @@
                 android:title="Rental"/>
 
             <item
-                android:id="@+id/nav_laporanAdmin"
-                android:icon="@drawable/riwayat"
+                android:id="@+id/nav_reportAdmin"
+                android:icon="@drawable/history"
                 android:title="Laporan"/>
         </menu>
 
